@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const colors = require('colors');
 
+const users = require('./routes/api/users');
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +25,9 @@ mongoose
 app.get('/', (req, res) => {
   res.send('Hello, Worldie!');
 });
+
+//Use Routes
+app.use('/api/users', users);
 
 const port = process.env.PORT || 5000;
 
