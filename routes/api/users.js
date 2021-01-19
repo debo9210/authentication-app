@@ -1,5 +1,8 @@
 const express = require('express');
+const passport = require('passport');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys').secretOrKey;
 
 const router = express.Router();
 
@@ -8,6 +11,7 @@ const User = require('../../models/User');
 
 //load register input validation
 const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 // @Route POST api/users/register
 // @Desc route to register users
@@ -47,5 +51,69 @@ router.post('/register', (req, res) => {
     }
   });
 });
+
+// @Route Get api/users/login
+// @Desc route to login user / return jwt token
+// @Access Public
+router.get('/login', (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  //check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  //find user by email
+  User.findOne({ email }).then((user) => {
+    //check for user
+    if (!user) {
+      errors.email = 'User not found';
+      return res.status(404).json(errors);
+    }
+
+    //check password
+    bcrypt.compare(password, user.password).then((isMatch) => {
+      //user matched
+      if (isMatch) {
+        //user matched
+
+        //create jwt payload
+        const payload = {
+          id: user._id,
+          name: user.name,
+        };
+
+        //sign Token
+        jwt.sign(payload, keys, { expiresIn: 3600 * 2 }, (err, token) => {
+          res.json({
+            success: true,
+            token: `Bearer ${token}`,
+          });
+        });
+      } else {
+        errors.password = 'Password incorrect';
+        return res.status(400).json(errors);
+      }
+    });
+  });
+});
+
+// @Route GET api/users/current
+// @Desc Return current user route
+// @Access Private
+router.get(
+  '/current',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+    });
+  }
+);
 
 module.exports = router;
