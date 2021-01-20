@@ -1,3 +1,171 @@
 .App {
+  /* text-align: center; */
+  /* border: 1px solid red; */
+}
+
+.AuthContainer {
+  /* border: 1px solid blue; */
+  width: 33%;
+  margin: 30px auto 0 auto;
+}
+
+.AuthPage {
+  border: 1px solid #bdbdbd;
+  border-radius: 24px;
+}
+
+.Auth {
+  /* border: 1px solid red; */
+  width: 80%;
+  margin: 30px auto;
+}
+
+.Brand {
+  margin-bottom: 15px;
+}
+
+.LoginHeadingContainer {
+  display: none;
+  margin-bottom: 20px;
+}
+
+.LoginText {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.035em;
+  color: #333333;
+  margin: 0;
+}
+
+.AuthHeading {
+  width: 85%;
+  /* height: 50px; */
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+
+.AuthAbout {
+  width: 90%;
+  /* height: 66px; */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.035em;
+  /* border: 1px solid green; */
+}
+
+.InputGrouping {
+  /* border: 1px solid purple; */
+  display: flex;
+  flex-direction: column;
+}
+
+.InputGroup {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  border: 1px solid #bdbdbd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.InputIcon {
+  color: #828282;
+  margin: 0 8px 0 10px;
+}
+
+.InputGroup input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.InputGroup input::placeholder {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  /* line-height: 22px; */
+  letter-spacing: -0.035em;
+  color: #828282;
+}
+
+.AuthBtn {
+  background: #2f80ed;
+  border-radius: 6px;
+  height: 35px;
+  border: none;
+  outline: none;
+  color: #fff;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.SocialConnect {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: -0.035em;
+  color: #828282;
   text-align: center;
+  margin-top: 25px;
+}
+
+.SocialGroup {
+  /* border: 1px dotted green; */
+  width: 61%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* justify-content: space-between; */
+}
+
+.SocialGroup img {
+  width: 39px;
+  cursor: pointer;
+}
+
+.Login-Register {
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: -0.035em;
+  color: #828282;
+  margin: 20px 0 0 0;
+}
+
+.Login-Register span {
+  color: #96cded;
+  cursor: pointer;
+}
+
+.CopyRight {
+  /* border: 1px solid red; */
+  display: flex;
+  margin-top: 5px;
+  justify-content: space-between;
+}
+
+.CopyText {
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 19px;
+  letter-spacing: -0.035em;
+  color: #bdbdbd;
 }

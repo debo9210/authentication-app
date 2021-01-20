@@ -1,9 +1,10 @@
+import AuthPage from './components/AuthPage';
 import './App.css';
 
 function App() {
   return (
     <div className='App'>
-      <header className='App-header'>Auth app</header>
+      <AuthPage />
     </div>
   );
 }
