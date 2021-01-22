@@ -52,10 +52,10 @@ router.post('/register', (req, res) => {
   });
 });
 
-// @Route Get api/users/login
+// @Route Post api/users/login
 // @Desc route to login user / return jwt token
 // @Access Public
-router.get('/login', (req, res) => {
+router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   //check validation
@@ -70,7 +70,7 @@ router.get('/login', (req, res) => {
   User.findOne({ email }).then((user) => {
     //check for user
     if (!user) {
-      errors.email = 'User not found';
+      errors.email = 'User not found, register yet?';
       return res.status(404).json(errors);
     }
 
@@ -84,6 +84,7 @@ router.get('/login', (req, res) => {
         const payload = {
           id: user._id,
           name: user.name,
+          email: user.email,
         };
 
         //sign Token

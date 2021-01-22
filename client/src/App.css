@@ -1,8 +1,14 @@
+/* general styles */
 .App {
   /* text-align: center; */
   /* border: 1px solid red; */
 }
 
+a {
+  text-decoration: none;
+}
+
+/* auth component styles */
 .AuthContainer {
   /* border: 1px solid blue; */
   width: 33%;
@@ -22,11 +28,6 @@
 
 .Brand {
   margin-bottom: 15px;
-}
-
-.LoginHeadingContainer {
-  display: none;
-  margin-bottom: 20px;
 }
 
 .LoginText {
@@ -73,7 +74,8 @@
   height: 35px;
   border: 1px solid #bdbdbd;
   border-radius: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  /* border: 1px solid red; */
 }
 
 .InputIcon {
@@ -97,6 +99,12 @@
   /* line-height: 22px; */
   letter-spacing: -0.035em;
   color: #828282;
+}
+
+.ErrorText {
+  color: tomato;
+  margin: -10px 0 5px 0;
+  /* border: 1px solid blue; */
 }
 
 .AuthBtn {
@@ -168,4 +176,101 @@
   line-height: 19px;
   letter-spacing: -0.035em;
   color: #bdbdbd;
+}
+
+/* personal info styles */
+.PersonalInfo {
+  /* border: 1px solid red; */
+  width: 93%;
+  margin: 20px auto 0 auto;
+}
+
+.PersonalInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.UserInfo {
+  display: flex;
+  align-items: center;
+}
+
+.UserImage {
+  width: 32px;
+  height: 32.69px;
+  border: 1px solid green;
+  border-radius: 5px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.UserName {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.035em;
+  margin: 0 10px 0 10px;
+}
+
+.ArrowDownIcon {
+  cursor: pointer;
+}
+
+.DropDownContainer {
+  width: 172.04px;
+  height: 153.61px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  position: absolute;
+  top: 75px;
+  right: 50px;
+  display: none;
+  padding-top: 15px;
+}
+
+.DropDownItem {
+  /* border: 1px solid blue; */
+  display: flex;
+  align-items: center;
+  width: 148.12px;
+  height: 35.15px;
+  border-radius: 8px;
+  margin: 0 auto 0px auto;
+  cursor: pointer;
+}
+
+.DropDownItem:hover {
+  background: #f2f2f2;
+}
+
+.DropDownIcon {
+  color: #4f4f4f;
+  font-size: 18px;
+  margin: 0 10px 0 10px;
+}
+
+.IconName {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.035em;
+  color: #4f4f4f;
+}
+
+.LogOut {
+  /* border: 1px solid red; */
+  border-top: 1px solid #e0e0e0;
+  width: 148.12px;
+  margin: 10px auto 0 auto;
+  padding-top: 10px;
+}
+
+.ExitIcon {
+  color: #eb5757;
 }
