@@ -66,6 +66,7 @@ a {
   /* border: 1px solid purple; */
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 }
 
 .InputGroup {
@@ -185,10 +186,11 @@ a {
   margin: 20px auto 0 auto;
 }
 
-.PersonalInfoHeader {
+.PersonalInfoNav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* border: 1px solid red; */
 }
 
 .UserInfo {
@@ -199,7 +201,7 @@ a {
 .UserImage {
   width: 32px;
   height: 32.69px;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   border-radius: 5px;
   background-position: center;
   background-size: cover;
@@ -273,4 +275,273 @@ a {
 
 .ExitIcon {
   color: #eb5757;
+}
+
+.PersonalInfoHeader {
+  /* border: 1px solid orange; */
+  margin-top: 30px;
+}
+
+.HeadingText {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 49px;
+  letter-spacing: -0.035em;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+
+.HeadingAbout {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.035em;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+
+.ProfileInfoDisplay {
+  border: 1px solid #e0e0e0;
+  /* border: 1px solid orange; */
+  border-radius: 12px;
+  width: 55%;
+  margin: 30px auto 0 auto;
+}
+
+.ProfileDetailsContainer {
+  /* border: 1px solid green; */
+  border-bottom: 1px solid #d3d3d3;
+  padding: 20px 0;
+}
+
+.ProfileBox {
+  width: 90%;
+  margin: 0 auto;
+  /* border: 1px solid green; */
+}
+
+.ProfileHeading {
+  /* border: 1px solid blue; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Profile h3,
+p {
+  margin: 0;
+}
+
+.Profile h3 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 33px;
+  letter-spacing: -0.035em;
+  color: #000000;
+}
+
+.Profile p {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.035em;
+  color: #828282;
+}
+
+.EditBtn {
+  border: 1px solid #828282;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: transparent;
+  outline: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #828282;
+  letter-spacing: -0.035em;
+  padding: 2px 25px;
+  cursor: pointer;
+}
+
+.PhotoHeight {
+  height: 90px;
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+
+.Photo {
+  display: flex;
+  align-items: center;
+}
+
+.DetailsHeading {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  /* identical to box height */
+  letter-spacing: -0.035em;
+  color: #bdbdbd;
+  text-transform: uppercase;
+  /* border: 1px solid red; */
+  width: 35%;
+}
+
+.ProfileImage {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.ML {
+  /* margin-left: 200px; */
+  width: 65%;
+}
+
+.ProfileBio {
+  display: flex;
+  align-items: center;
+}
+
+.BioDetails {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.035em;
+  color: #333333;
+}
+
+.EmailContainer {
+  border-bottom: none;
+}
+
+.CopyProfileInfo {
+  width: 55%;
+  margin: 10px auto;
+}
+
+/* create profile styles */
+.CreateProfile {
+  /* border: 1px solid tomato; */
+  width: 89%;
+  margin: 30px auto;
+}
+
+.CreateProfileHeading {
+  text-align: center;
+}
+
+.AddPhotoContainer {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid green; */
+  margin: 10px 0 20px 0;
+}
+
+.AddPhoto {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 20px;
+}
+
+.CameraIcon {
+  color: #ccc;
+}
+
+.FileUploadContainer {
+  /* border: 1px solid tomato; */
+}
+
+.FileUploadContainer input {
+  display: none;
+}
+
+.FileUploadContainer label {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.035em;
+  color: #828282;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ProfileInputGroup {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 15px 0;
+}
+
+.LabelName {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.035em;
+  color: #4f4f4f;
+}
+
+.ProfileInputGroup input {
+  height: 35px;
+  border: 1px solid #828282;
+  border-radius: 8px;
+  padding-left: 10px;
+  outline: none;
+  background: #fafafb;
+}
+
+.inputInfo {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: -0.035em;
+  color: #4f4f4f;
+}
+
+.ProfileInputGroup input::placeholder,
+.BioInfo::placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.035em;
+  color: #bdbdbd;
+}
+
+.BioInfo {
+  height: 91px;
+  border: 1px solid #828282;
+  border-radius: 8px;
+  padding-left: 10px;
+  resize: none;
+  outline: none;
+  background: #fafafb;
+}
+
+.createInfoBtn {
+  background: #2f80ed;
+  border-radius: 4px;
+  color: #fff;
+  padding: 7px 17px;
+  text-transform: capitalize;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }

@@ -118,7 +118,7 @@ router.get('/image/:id', (req, res) => {
   });
 });
 
-// @Route Post api/profile/createProfile
+// @Route Post api/profile
 // @Desc create user Profile
 // @Access Private
 router.post(
