@@ -6,6 +6,7 @@ const InputComponent = ({
   placeholder,
   errorText,
   inputValueHandler,
+  error,
 }) => {
   return (
     <>

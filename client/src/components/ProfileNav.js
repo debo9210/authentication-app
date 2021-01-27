@@ -1,0 +1,82 @@
+import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { logoutUser } from '../redux/actions/authActions';
+
+const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const DropDownContainerRef = useRef(null);
+
+  const showDropDown = (e) => {
+    if (e.target.textContent === 'arrow_drop_down') {
+      e.target.textContent = 'arrow_drop_up';
+      DropDownContainerRef.current.style.display = 'block';
+    } else {
+      e.target.textContent = 'arrow_drop_down';
+      DropDownContainerRef.current.style.display = 'none';
+    }
+  };
+
+  const profileHandler = () => {
+    history.push('/personal-info');
+  };
+
+  const logoutHandler = () => {
+    dispatch(logoutUser());
+  };
+  return (
+    <>
+      <div className='PersonalInfo'>
+        <nav className='PersonalInfoNav'>
+          <div className='BrandContainer'>
+            <img src={BrandLogo} alt='Brand' className='Brand' />
+          </div>
+
+          <div className='UserInfoContainer'>
+            <div className='UserInfo'>
+              <div
+                className='UserImage'
+                style={{
+                  backgroundImage: `url(${!image ? tempImage : image})`,
+                }}
+              ></div>
+              <p className='UserName'>{userName}</p>
+              <i
+                onClick={showDropDown}
+                className='material-icons ArrowDownIcon'
+              >
+                arrow_drop_down
+              </i>
+            </div>
+
+            <div className='DropDownContainer' ref={DropDownContainerRef}>
+              <div className='DropDown'>
+                <div className='DropDownItem' onClick={profileHandler}>
+                  <i className='material-icons DropDownIcon'>account_circle</i>
+                  <p className='IconName'>My Profile</p>
+                </div>
+                <div className='DropDownItem'>
+                  <i className='material-icons DropDownIcon'>group</i>
+                  <p className='IconName'>Group Chat</p>
+                </div>
+
+                <div className='LogOut'>
+                  <div onClick={logoutHandler} className='DropDownItem'>
+                    <i className='material-icons DropDownIcon ExitIcon'>
+                      exit_to_app
+                    </i>
+                    <p className='IconName ExitIcon'>Logout</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </>
+  );
+};
+
+export default ProfileNav;

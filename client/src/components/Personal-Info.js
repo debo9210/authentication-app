@@ -1,14 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import BrandLogo from '../svg/devchallenges.svg';
 import tempImage from '../images/noProfilePhoto.png';
-import ProfileInputComponent from '../components/ProfileInputComponent';
-import { logoutUser } from '../redux/actions/authActions';
-import {
-  getUserProfile,
-  createUserProfile,
-} from '../redux/actions/profileActions';
+import ProfileNav from '../components/ProfileNav';
+import { getUserProfile } from '../redux/actions/profileActions';
 
 const PersonalInfo = () => {
   const history = useHistory();
@@ -19,73 +15,11 @@ const PersonalInfo = () => {
   const [image, setImage] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [picture, setPicture] = useState('');
-
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userBio, setUserBio] = useState('');
-  const [userPhone, setUserPhone] = useState('');
-  const [fileobj, setFileObj] = useState({});
-
-  const [create, setCreate] = useState(false);
-  const [summary, setSummary] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const currentUser = useSelector((state) => state.currentUser);
 
   const { error, profileDetails } = useSelector((state) => state.userProfile);
-
-  const { error: createError, loading } = useSelector(
-    (state) => state.createProfile
-  );
-
-  const DropDownContainerRef = useRef(null);
-
-  // let convertPwd = [];
-  // if (currentUser) {
-  //   const PASSWORD = currentUser.user.password.substr(0, 12).split('');
-  //   for (let i = 0; i < PASSWORD.length; i++) {
-  //     convertPwd.push((PASSWORD[i] = '*'));
-  //   }
-  // }
-
-  const showDropDown = (e) => {
-    if (e.target.textContent === 'arrow_drop_down') {
-      e.target.textContent = 'arrow_drop_up';
-      DropDownContainerRef.current.style.display = 'block';
-    } else {
-      e.target.textContent = 'arrow_drop_down';
-      DropDownContainerRef.current.style.display = 'none';
-    }
-  };
-
-  const logoutHandler = () => {
-    dispatch(logoutUser());
-  };
-
-  const inputFileHandler = (e) => {
-    let reader;
-    if (e.target.files && e.target.files[0]) {
-      reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onloadend = function () {
-        setPicture(reader.result);
-      };
-    }
-    setFileObj(e.target.files[0]);
-  };
-
-  const createProfileHandler = () => {
-    console.log(fileobj);
-
-    const formData = new FormData();
-    formData.append('name', userName);
-    formData.append('email', userEmail);
-    formData.append('bio', userBio);
-    formData.append('phone', userPhone);
-    formData.append('uploads', fileobj);
-
-    dispatch(createUserProfile(formData));
-  };
 
   const profileSummary = (
     <>
@@ -100,7 +34,12 @@ const PersonalInfo = () => {
               <h3>Profile</h3>
               <p>Some info may be visible to other people</p>
             </div>
-            <button className='EditBtn'>Edit</button>
+            <button
+              onClick={() => history.push('/update-profile')}
+              className='EditBtn'
+            >
+              Edit
+            </button>
           </div>
         </div>
         <div className='ProfileDetailsContainer PhotoHeight'>
@@ -150,95 +89,6 @@ const PersonalInfo = () => {
             </div>
           </div>
         </div>
-        {/* <div className='ProfileDetailsContainer PasswordContainer'>
-          <div className='ProfileBio ProfileBox'>
-            <p className='DetailsHeading'>password</p>
-            <div className='ML'>
-              <p className='BioDetails'>password</p>
-            </div>
-          </div>
-        </div> */}
-      </div>
-      <div className='CopyRight CopyProfileInfo'>
-        <p className='CopyText'>debo9210</p>
-        <p className='CopyText'>devchallenges.io</p>
-      </div>
-    </>
-  );
-
-  const createProfile = (
-    <>
-      <h2 className='CreateProfileHeading'>
-        You have no profile yet. Create one below...
-      </h2>
-      <div className='ProfileInfoDisplay'>
-        <div className='CreateProfile'>
-          <h3>Add Info</h3>
-          <div className='AddPhotoContainer'>
-            <div
-              className='AddPhoto'
-              style={{
-                backgroundImage: `url(${picture ? picture : tempImage})`,
-              }}
-            >
-              <i className='material-icons CameraIcon'>photo_camera</i>
-            </div>
-            <div className='FileUploadContainer'>
-              <label htmlFor='file-upload' className='FileBtn'>
-                add photo
-              </label>
-              <input
-                id='file-upload'
-                type='file'
-                name='uploads'
-                onChange={inputFileHandler}
-              />
-            </div>
-          </div>
-
-          <ProfileInputComponent
-            labelName='Name'
-            inputType='text'
-            placeholder='Enter your name...'
-            inputInfo='* Change name?'
-            inputValue={userName}
-            inputHandler={(e) => setUserName(e.target.value)}
-            createError={createError && createError.name}
-          />
-
-          <div className='ProfileInputGroup'>
-            <label className='LabelName'>Bio</label>
-            <textarea
-              className='BioInfo'
-              placeholder='Enter your bio...'
-              onChange={(e) => setUserBio(e.target.value)}
-            ></textarea>
-            <small className='createError' style={{ color: 'tomato' }}>
-              {createError && createError.bio}
-            </small>
-          </div>
-
-          <ProfileInputComponent
-            labelName='Phone'
-            inputType='text'
-            placeholder='Enter your phone...'
-            inputHandler={(e) => setUserPhone(e.target.value)}
-          />
-
-          <ProfileInputComponent
-            labelName='Email'
-            inputType='email'
-            placeholder='Enter your email...'
-            inputInfo='* Change email?'
-            inputValue={userEmail}
-            inputHandler={(e) => setUserEmail(e.target.value)}
-            createError={createError && createError.email}
-          />
-
-          <button onClick={createProfileHandler} className='createInfoBtn'>
-            save
-          </button>
-        </div>
       </div>
       <div className='CopyRight CopyProfileInfo'>
         <p className='CopyText'>debo9210</p>
@@ -257,76 +107,33 @@ const PersonalInfo = () => {
     }
 
     if (error) {
-      // setCreate(true);
-      // setSummary(false);
+      setErrorMsg(error.profile);
+      if (errorMsg === 'There is no profile created for this user') {
+        history.push('/create-profile');
+      }
+      window.location.reload();
+      // setErrorMsg('');
     }
-  }, [profileDetails, error]);
+  }, [profileDetails, error, history, errorMsg]);
 
   useEffect(() => {
     if (!currentUser.isAuthenticated) {
       history.push('/login');
-    }
-
-    if (currentUser) {
-      setUserName(currentUser.user.name);
-      setUserEmail(currentUser.user.email);
     }
     dispatch(getUserProfile(currentUser.user.id));
   }, [currentUser, history, dispatch]);
 
   return (
     <div>
-      <div className='PersonalInfo'>
-        <nav className='PersonalInfoNav'>
-          <div className='BrandContainer'>
-            <img src={BrandLogo} alt='Brand' className='Brand' />
-          </div>
+      <ProfileNav
+        BrandLogo={BrandLogo}
+        image={image}
+        tempImage={tempImage}
+        userName={currentUser.user.name}
+      />
 
-          <div className='UserInfoContainer'>
-            <div className='UserInfo'>
-              <div
-                className='UserImage'
-                style={{
-                  backgroundImage: `url(${!image ? tempImage : image})`,
-                }}
-              ></div>
-              <p className='UserName'>{currentUser.user.name}</p>
-              <i
-                onClick={showDropDown}
-                className='material-icons ArrowDownIcon'
-              >
-                arrow_drop_down
-              </i>
-            </div>
-
-            <div className='DropDownContainer' ref={DropDownContainerRef}>
-              <div className='DropDown'>
-                <div className='DropDownItem'>
-                  <i className='material-icons DropDownIcon'>account_circle</i>
-                  <p className='IconName'>My Profile</p>
-                </div>
-                <div className='DropDownItem'>
-                  <i className='material-icons DropDownIcon'>group</i>
-                  <p className='IconName'>Group Chat</p>
-                </div>
-
-                <div className='LogOut'>
-                  <div onClick={logoutHandler} className='DropDownItem'>
-                    <i className='material-icons DropDownIcon ExitIcon'>
-                      exit_to_app
-                    </i>
-                    <p className='IconName ExitIcon'>Logout</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        {error ? createProfile : profileSummary}
-        {/* {create && createProfile}
-        {summary && profileSummary} */}
-      </div>
+      {/* {profileSummary} */}
+      {profileSummary}
     </div>
   );
 };

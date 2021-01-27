@@ -4,11 +4,13 @@ const passport = require('passport');
 const router = express.Router();
 
 const path = require('path');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const gravatar = require('gravatar');
+const Validator = require('validator');
 
 //db config
 const mongoURI = require('../../config/keys').mongoURI;
@@ -186,6 +188,7 @@ router.put(
   passport.authenticate('jwt', { session: false }),
   upload.single('uploads'),
   (req, res) => {
+    // console.log(req.file);
     const { errors, isValid } = validateProfileInput(req.body);
 
     //validate input
@@ -193,40 +196,64 @@ router.put(
       return res.status(400).json(errors);
     }
 
-    const url = req.protocol + '://' + req.get('host');
-
-    let image;
-    let imageFile;
-    if (!req.file) {
-      const url = gravatar.url(`${req.user.email}`, {
-        s: '200',
-        r: 'pg',
-        d: 'mm',
-      });
-      image = url;
-      imageFile = null;
-    } else {
-      image = `${url}/api/profile/image/${req.file.filename}`;
-      imageFile = req.file.filename;
+    if (req.file) {
+      Profile.findOne({ user: req.user.id })
+        .then((profile) => {
+          if (req.file.filename !== profile.imageFileName) {
+            gfs.remove({
+              filename: profile.imageFileName,
+              root: 'uploads',
+            });
+          }
+        })
+        .catch((err) => console.log(err));
     }
 
-    Profile.findOne({ user: req.user.id }).then((profile) => {
-      if (req.file.filename !== profile.imageFileName) {
-        gfs.remove({
-          filename: profile.imageFileName,
-          root: 'uploads',
-        });
-      }
-    });
+    const url = req.protocol + '://' + req.get('host');
 
     const profileFields = {};
-    profileFields.user = req.user.id;
-    profileFields.name = req.body.name;
-    profileFields.imageLink = image;
-    profileFields.imageFileName = imageFile;
-    profileFields.email = req.body.email;
-    profileFields.bio = req.body.bio;
-    profileFields.phone = req.body.phone;
+
+    if (!req.file) {
+      profileFields.name = req.body.name;
+      profileFields.email = req.body.email;
+      profileFields.bio = req.body.bio;
+      profileFields.phone = req.body.phone;
+    } else {
+      profileFields.name = req.body.name;
+      profileFields.imageLink = `${url}/api/profile/image/${req.file.filename}`;
+      profileFields.imageFileName = req.file.filename;
+      profileFields.email = req.body.email;
+      profileFields.bio = req.body.bio;
+      profileFields.phone = req.body.phone;
+    }
+
+    //update user email and password
+    if (req.body.password !== '') {
+      if (!Validator.isLength(req.body.password, { min: 6, max: 30 })) {
+        errors.password = 'Password must be between 6 and 30 characters';
+        return res.status(400).json(errors);
+      }
+
+      const userUpdate = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+      };
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(userUpdate.password, salt, (err, hash) => {
+          if (err) throw err;
+          userUpdate.password = hash;
+          User.findByIdAndUpdate(
+            req.user.id,
+            { $set: userUpdate },
+            { new: true }
+          )
+            .then()
+            .catch((err) => console.log(err));
+        });
+      });
+    }
 
     Profile.findOneAndUpdate(
       { user: req.user.id },

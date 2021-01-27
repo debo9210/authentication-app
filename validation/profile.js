@@ -7,6 +7,7 @@ module.exports = validateProfileInput = (data) => {
   data.name = !isEmpty(data.name) ? data.name : '';
   data.email = !isEmpty(data.email) ? data.email : '';
   data.bio = !isEmpty(data.bio) ? data.bio : '';
+  data.password = !isEmpty(data.password) ? data.password : '';
 
   if (Validator.isEmpty(data.name)) {
     errors.name = 'Name field is required';

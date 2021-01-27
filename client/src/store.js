@@ -6,6 +6,7 @@ import { currentUserReducer } from './redux/reducers/authReducer';
 import {
   userProfileReducer,
   createProfileReducer,
+  updateProfileReducer,
 } from './redux/reducers/profileReducers';
 
 const reducers = combineReducers({
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   currentUser: currentUserReducer,
   userProfile: userProfileReducer,
   createProfile: createProfileReducer,
+  updateProfile: updateProfileReducer,
 });
 
 const initialState = {};

@@ -5,6 +5,9 @@ import {
   CREATE_PROFILE_REQUEST,
   CREATE_PROFILE_SUCCESS,
   CREATE_PROFILE_FAIL,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAIL,
 } from '../constants';
 
 export const userProfileReducer = (state = {}, action) => {
@@ -37,6 +40,25 @@ export const createProfileReducer = (state = {}, action) => {
         success: true,
       };
     case CREATE_PROFILE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const updateProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_PROFILE_REQUEST:
+      return { ...state, loading: true };
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case UPDATE_PROFILE_FAIL:
       return {
         loading: false,
         error: action.payload,

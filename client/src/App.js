@@ -7,6 +7,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 import './App.css';
 import PersonalInfo from './components/Personal-Info';
+import CreateProfile from './components/CreateProfile';
+import UpdateProfile from './components/UpdateProfile';
 
 //check for token
 if (localStorage.jwtToken) {
@@ -34,6 +36,8 @@ function App() {
       <Router>
         <Route path='/login' component={Login} exact />
         <Route path='/personal-info' component={PersonalInfo} exact />
+        <Route path='/create-profile' component={CreateProfile} exact />
+        <Route path='/update-profile' component={UpdateProfile} exact />
         <Route path='/' component={Register} exact />
       </Router>
     </div>
