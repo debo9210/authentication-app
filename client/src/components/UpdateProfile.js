@@ -52,7 +52,7 @@ const UpdateProfile = () => {
     formData.append('email', userEmail);
     formData.append('password', userPassword);
     formData.append('uploads', fileObj);
-    dispatch(updateUserProfile(formData));
+    dispatch(updateUserProfile(currentUser.user.id, formData));
 
     setTimeout(() => {
       if (success) {
@@ -60,6 +60,23 @@ const UpdateProfile = () => {
       }
     }, 500);
   };
+
+  let passwordInput;
+  if (!currentUser.user.socialName) {
+    passwordInput = (
+      <ProfileInputComponent
+        labelName='Password'
+        inputType='password'
+        placeholder='Enter your password...'
+        inputValue={userPassword}
+        inputHandler={(e) => setUserPassword(e.target.value)}
+        inputInfo='* changing password will affect login process'
+        createError={error && error.password}
+      />
+    );
+  } else {
+    passwordInput = null;
+  }
 
   const updateProfileCont = (
     <>
@@ -134,7 +151,7 @@ const UpdateProfile = () => {
             createError={error && error.email}
           />
 
-          <ProfileInputComponent
+          {/* <ProfileInputComponent
             labelName='Password'
             inputType='password'
             placeholder='Enter your password...'
@@ -142,7 +159,8 @@ const UpdateProfile = () => {
             inputHandler={(e) => setUserPassword(e.target.value)}
             inputInfo='* changing password will affect login process'
             createError={error && error.password}
-          />
+          /> */}
+          {passwordInput}
 
           <button onClick={updateProfileHandler} className='createInfoBtn'>
             Update

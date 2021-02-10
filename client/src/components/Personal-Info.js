@@ -4,7 +4,10 @@ import { useHistory } from 'react-router-dom';
 import BrandLogo from '../svg/devchallenges.svg';
 import tempImage from '../images/noProfilePhoto.png';
 import ProfileNav from '../components/ProfileNav';
+import Loader from './Loader';
 import { getUserProfile } from '../redux/actions/profileActions';
+import { logoutUser } from '../redux/actions/authActions';
+import axios from 'axios';
 
 const PersonalInfo = () => {
   const history = useHistory();
@@ -19,7 +22,18 @@ const PersonalInfo = () => {
 
   const currentUser = useSelector((state) => state.currentUser);
 
-  const { error, profileDetails } = useSelector((state) => state.userProfile);
+  const { error, profileDetails, loading } = useSelector(
+    (state) => state.userProfile
+  );
+
+  // console.log(image);
+
+  const deleteProfileHandler = () => {
+    axios
+      .delete(`/api/profile/remove/${currentUser.user.id}`)
+      .then(() => dispatch(logoutUser()))
+      .catch((err) => console.log(err));
+  };
 
   const profileSummary = (
     <>
@@ -39,6 +53,9 @@ const PersonalInfo = () => {
               className='EditBtn'
             >
               Edit
+            </button>
+            <button onClick={deleteProfileHandler} className='EditBtn'>
+              Delete
             </button>
           </div>
         </div>
@@ -111,7 +128,7 @@ const PersonalInfo = () => {
       if (errorMsg === 'There is no profile created for this user') {
         history.push('/create-profile');
       }
-      window.location.reload();
+      // window.location.reload();
       // setErrorMsg('');
     }
   }, [profileDetails, error, history, errorMsg]);
@@ -120,20 +137,26 @@ const PersonalInfo = () => {
     if (!currentUser.isAuthenticated) {
       history.push('/login');
     }
-    dispatch(getUserProfile(currentUser.user.id));
   }, [currentUser, history, dispatch]);
+
+  useEffect(() => {
+    // console.log(currentUser.user.id);
+    if (currentUser.user.id) {
+      dispatch(getUserProfile(currentUser.user.id));
+    }
+  }, [dispatch, currentUser]);
 
   return (
     <div>
       <ProfileNav
         BrandLogo={BrandLogo}
-        image={image}
+        image={loading ? tempImage : image}
         tempImage={tempImage}
         userName={currentUser.user.name}
       />
 
       {/* {profileSummary} */}
-      {profileSummary}
+      {loading ? <Loader /> : profileSummary}
     </div>
   );
 };

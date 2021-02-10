@@ -8,13 +8,27 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
+  },
+  image: {
+    type: String,
   },
   password: {
     type: String,
-    required: true,
   },
-  date: {
+  socialID: {
+    type: String,
+  },
+  socialName: {
+    type: String,
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  createdAt: {
     type: Date,
     default: Date.now,
   },

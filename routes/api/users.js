@@ -56,6 +56,7 @@ router.post('/register', (req, res) => {
 // @Desc route to login user / return jwt token
 // @Access Public
 router.post('/login', (req, res) => {
+  // console.log(req.session);
   const { errors, isValid } = validateLoginInput(req.body);
 
   //check validation
@@ -116,5 +117,33 @@ router.get(
     });
   }
 );
+
+// @Route GET api/users/logout
+// @Desc logout user
+// @Access Public
+router.delete('/logout', async (req, res) => {
+  // console.log(req.session);
+  await req.session.destroy((err) => {
+    if (err) {
+      res.status(400).json({ message: 'Something went wrong' });
+    } else {
+      req.logOut();
+      res.status(200).json({
+        message: 'Logged out successfully',
+      });
+    }
+  });
+});
+
+// @Route GET api/users/google/login
+// @Desc log user in using google
+// @Access Public
+router.get('/facebook/login/:id', async (req, res, next) => {
+  req.session.userID = req.params.id;
+  const user = await User.findOne({ socialID: req.session.userID });
+  req.user = user;
+  res.status(200).json(req.user);
+  next();
+});
 
 module.exports = router;

@@ -14,16 +14,16 @@ import {
 export const getUserProfile = (id) => async (dispatch) => {
   // console.log(localStorage.jwtToken);
 
-  const config = {
-    headers: {
-      Authorization: localStorage.jwtToken,
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     Authorization: localStorage.jwtToken,
+  //   },
+  // };
 
   try {
     dispatch({ type: GET_PROFILE_REQUEST });
 
-    const { data } = await axios.get(`/api/profile/${id}`, config);
+    const { data } = await axios.get(`/api/profile/${id}`);
 
     dispatch({
       type: GET_PROFILE_SUCCESS,
@@ -37,10 +37,10 @@ export const getUserProfile = (id) => async (dispatch) => {
   }
 };
 
-export const createUserProfile = (formData) => (dispatch) => {
+export const createUserProfile = (id, formData, history) => (dispatch) => {
+  console.log(history);
   const config = {
     headers: {
-      Authorization: localStorage.jwtToken,
       'Content-Type': 'multipart/form-data',
     },
   };
@@ -48,12 +48,13 @@ export const createUserProfile = (formData) => (dispatch) => {
   dispatch({ type: CREATE_PROFILE_REQUEST });
 
   axios
-    .post(`api/profile/`, formData, config)
-    .then(() =>
+    .post(`api/profile/${id}`, formData, config)
+    .then(() => {
       dispatch({
         type: CREATE_PROFILE_SUCCESS,
-      })
-    )
+      });
+      history.push('/personal-info');
+    })
     .catch((err) =>
       dispatch({
         type: CREATE_PROFILE_FAIL,
@@ -62,10 +63,9 @@ export const createUserProfile = (formData) => (dispatch) => {
     );
 };
 
-export const updateUserProfile = (formData) => (dispatch) => {
+export const updateUserProfile = (id, formData) => (dispatch) => {
   const config = {
     headers: {
-      Authorization: localStorage.jwtToken,
       'Content-Type': 'multipart/form-data',
     },
   };
@@ -73,7 +73,7 @@ export const updateUserProfile = (formData) => (dispatch) => {
   dispatch({ type: UPDATE_PROFILE_REQUEST });
 
   axios
-    .put(`api/profile/`, formData, config)
+    .put(`api/profile/${id}`, formData, config)
     .then(() =>
       dispatch({
         type: UPDATE_PROFILE_SUCCESS,

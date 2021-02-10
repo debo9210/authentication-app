@@ -52,6 +52,25 @@ export const loginUser = (formData) => (dispatch) => {
     );
 };
 
+//social login users
+export const socialLogin = (history) => (dispatch) => {
+  axios
+    .get(`/social/login`)
+    .then((res) => {
+      // console.log(res.data);
+      const userDetails = {
+        id: res.data._id,
+        name: res.data.name,
+        email: res.data.email,
+        socialName: res.data.socialName,
+        image: res.data.image,
+      };
+      dispatch(setCurrentUser(userDetails));
+      history.push('/personal-info');
+    })
+    .catch((err) => console.log(err));
+};
+
 //set logged in user
 export const setCurrentUser = (decoded) => {
   return {
@@ -69,6 +88,18 @@ export const logoutUser = () => (dispatch) => {
   setAuthToken(false);
 
   //set current user to {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
+  // axios
+  //   .delete('/api/users/logout')
+  //   .then()
+  //   .catch((err) => console.log(err));
+};
+
+export const socialUserLogout = () => (dispatch) => {
+  axios
+    .delete('/api/users/logout')
+    .then()
+    .catch((err) => console.log(err));
   dispatch(setCurrentUser({}));
 };
 

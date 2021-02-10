@@ -2,8 +2,10 @@ import React from 'react';
 import DevLogo from '../svg/devchallenges.svg';
 import GoogleLogo from '../svg/Google.svg';
 import FacebookLogo from '../svg/Facebook.svg';
+// eslint-disable-next-line
 import TwitterLogo from '../svg/Twitter.svg';
 import GithubLogo from '../svg/Github.svg';
+import SocialLogin from './SocialLoginComponent';
 
 const AuthComponent = ({
   authHeading,
@@ -31,10 +33,16 @@ const AuthComponent = ({
           <p className='SocialConnect'>or continue with these social profile</p>
 
           <div className='SocialGroup'>
-            <img src={GoogleLogo} alt='google' />
-            <img src={FacebookLogo} alt='facebook' />
-            <img src={TwitterLogo} alt='twitter' />
-            <img src={GithubLogo} alt='github' />
+            <SocialLogin socialLogo={GoogleLogo} socialName='google' />
+            <div>
+              <SocialLogin socialLogo={FacebookLogo} socialName='facebook' />
+            </div>
+            {/* <div className='SocialLinkContainer'>
+              <SocialLogin socialLogo={TwitterLogo} socialName='twitter' />
+            </div> */}
+            <div className=''>
+              <SocialLogin socialLogo={GithubLogo} socialName='github' />
+            </div>
           </div>
 
           {memberOption}

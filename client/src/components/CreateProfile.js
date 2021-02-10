@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import BrandLogo from '../svg/devchallenges.svg';
 import tempImage from '../images/noProfilePhoto.png';
 import ProfileNav from '../components/ProfileNav';
 import ProfileInputComponent from '../components/ProfileInputComponent';
-import Loader from './Loader';
+// import Loader from './Loader';
 import { createUserProfile } from '../redux/actions/profileActions';
 
 const CreateProfile = () => {
@@ -23,6 +23,8 @@ const CreateProfile = () => {
   const { error, loading, success } = useSelector(
     (state) => state.createProfile
   );
+
+  const { profileDetails } = useSelector((state) => state.userProfile);
 
   const inputFileHandler = (e) => {
     let reader;
@@ -44,7 +46,7 @@ const CreateProfile = () => {
     formData.append('phone', userPhone);
     formData.append('uploads', fileobj);
 
-    dispatch(createUserProfile(formData));
+    dispatch(createUserProfile(currentUser.user.id, formData, history));
     // history.push('./personal-info');
   };
 
@@ -130,11 +132,11 @@ const CreateProfile = () => {
   );
 
   useEffect(() => {
-    if (success) {
+    if (profileDetails) {
       //   window.location.reload();
-      history.push('/personal-info');
+      // history.push('/personal-info');
     }
-  }, [success, history]);
+  }, [profileDetails, history]);
 
   useEffect(() => {
     if (currentUser) {
@@ -154,7 +156,8 @@ const CreateProfile = () => {
         tempImage={tempImage}
         userName={currentUser.user.name}
       />
-      {loading ? <Loader /> : createProfile}
+      {/* {loading ? <Loader /> : createProfile} */}
+      {createProfile}
     </>
   );
 };

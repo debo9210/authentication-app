@@ -1,11 +1,15 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { logoutUser } from '../redux/actions/authActions';
+import { logoutUser, socialUserLogout } from '../redux/actions/authActions';
 
 const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const currentUser = useSelector((state) => state.currentUser);
+
+  // console.log(currentUser.user.socialName);
 
   const DropDownContainerRef = useRef(null);
 
@@ -25,6 +29,10 @@ const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
 
   const logoutHandler = () => {
     dispatch(logoutUser());
+  };
+
+  const socialLogoutHandler = () => {
+    dispatch(socialUserLogout(history));
   };
   return (
     <>
@@ -63,7 +71,14 @@ const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
                 </div>
 
                 <div className='LogOut'>
-                  <div onClick={logoutHandler} className='DropDownItem'>
+                  <div
+                    onClick={
+                      !currentUser.user.socialName
+                        ? logoutHandler
+                        : socialLogoutHandler
+                    }
+                    className='DropDownItem'
+                  >
                     <i className='material-icons DropDownIcon ExitIcon'>
                       exit_to_app
                     </i>
