@@ -29,10 +29,17 @@ mongoose
   .then(() => console.log('Connected to database'.yellow))
   .catch((err) => console.log(err));
 
+let url;
+if (process.env.NODE_ENV === 'production') {
+  url = 'http://localhost:3000';
+} else {
+  url = 'https://debo9210-auth-app.herokuapp.com/';
+}
+
 // set up cors to allow us to accept requests from our client
 app.use(
   cors({
-    origin: 'http://localhost:3000', // allow to server to accept request from different origin
+    origin: url, // allow to server to accept request from different origin
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // allow session cookie from browser to pass through
   })
