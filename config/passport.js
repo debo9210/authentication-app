@@ -12,7 +12,7 @@ const options = {
   secretOrKey: require('./keys').secretOrKey,
 };
 
-const twitterAuth = require('./keys').twitterAuth;
+// const twitterAuth = require('./keys').twitterAuth;
 const githubAuth = require('./keys').githubAuth;
 const facebookAuth = require('./keys').facebookAuth;
 const googleAuth = require('./keys').googleAuth;
@@ -69,54 +69,54 @@ module.exports = (passport) => {
     })
   );
 
-  passport.use(
-    new TwitterStrategy(
-      {
-        consumerKey: twitterAuth.twitterClientID,
-        consumerSecret: twitterAuth.twitterClientSecret,
-        callbackURL: twitterAuth.twitterCallbackUrl,
-        includeEmail: true,
-        // passReqToCallback: true,
-      },
-      async (req, token, tokenSecret, profile, done) => {
-        //store user to database
-        // console.log(req.passport);
-        User.findOne({ socialID: profile.id }).then((user) => {
-          if (user) {
-            //update user in database
-            const updateUser = {
-              socialID: profile.id,
-              name: profile.displayName,
-              image: profile.photos[0].value,
-              email: profile.emails[0].value,
-              socialName: profile.provider,
-            };
+  // passport.use(
+  //   new TwitterStrategy(
+  //     {
+  //       consumerKey: twitterAuth.twitterClientID,
+  //       consumerSecret: twitterAuth.twitterClientSecret,
+  //       callbackURL: twitterAuth.twitterCallbackUrl,
+  //       includeEmail: true,
+  //       // passReqToCallback: true,
+  //     },
+  //     async (req, token, tokenSecret, profile, done) => {
+  //       //store user to database
+  //       // console.log(req.passport);
+  //       User.findOne({ socialID: profile.id }).then((user) => {
+  //         if (user) {
+  //           //update user in database
+  //           const updateUser = {
+  //             socialID: profile.id,
+  //             name: profile.displayName,
+  //             image: profile.photos[0].value,
+  //             email: profile.emails[0].value,
+  //             socialName: profile.provider,
+  //           };
 
-            User.findOneAndUpdate(
-              { user: user._id },
-              { $set: updateUser },
-              { new: true }
-            );
-          } else {
-            //create new user in database
-            const newUser = new User({
-              socialID: profile.id,
-              name: profile.displayName,
-              image: profile.photos[0].value,
-              email: profile.emails[0].value,
-              socialName: profile.provider,
-            });
-            newUser
-              .save()
-              .then((user) => done(null, user))
-              .catch((err) => console.log(err));
-          }
-        });
-        // console.log(profile);
-        return done(null, profile);
-      }
-    )
-  );
+  //           User.findOneAndUpdate(
+  //             { user: user._id },
+  //             { $set: updateUser },
+  //             { new: true }
+  //           );
+  //         } else {
+  //           //create new user in database
+  //           const newUser = new User({
+  //             socialID: profile.id,
+  //             name: profile.displayName,
+  //             image: profile.photos[0].value,
+  //             email: profile.emails[0].value,
+  //             socialName: profile.provider,
+  //           });
+  //           newUser
+  //             .save()
+  //             .then((user) => done(null, user))
+  //             .catch((err) => console.log(err));
+  //         }
+  //       });
+  //       // console.log(profile);
+  //       return done(null, profile);
+  //     }
+  //   )
+  // );
 
   passport.use(
     new FacebookStrategy(

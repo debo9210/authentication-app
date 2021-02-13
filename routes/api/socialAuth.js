@@ -49,15 +49,15 @@ router.get(
   }
 );
 
-router.get('/twitter', passport.authenticate('twitter'));
+// router.get('/twitter', passport.authenticate('twitter'));
 
-router.get(
-  '/twitter/callback',
-  passport.authenticate('twitter', { failureRedirect: CLIENT_HOME_PAGE_URL }),
-  (req, res) => {
-    // console.log(res.session);
-    res.redirect(SOCIAL_LOGIN_URL);
-  }
-);
+// router.get(
+//   '/twitter/callback',
+//   passport.authenticate('twitter', { failureRedirect: CLIENT_HOME_PAGE_URL }),
+//   (req, res) => {
+//     // console.log(res.session);
+//     res.redirect(SOCIAL_LOGIN_URL);
+//   }
+// );
 
 module.exports = router;
