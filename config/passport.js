@@ -17,18 +17,40 @@ const githubAuth = require('./keys').githubAuth;
 const facebookAuth = require('./keys').facebookAuth;
 const googleAuth = require('./keys').googleAuth;
 
-let googleCallback, facebookCallback, githubCallback;
+let googleCredentials, facebookCredentials, githubCredentials;
 if (process.env.NODE_ENV === 'production') {
-  googleCallback =
-    'https://debo9210-auth-app.herokuapp.com/auth/google/callback';
-  facebookCallback =
-    'https://debo9210-auth-app.herokuapp.com/auth/facebook/callback';
-  githubAuthCallback =
-    'https://debo9210-auth-app.herokuapp.com/auth/github/callback';
+  googleCredentials = {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: 'https://debo9210-auth-app.herokuapp.com/auth/google/callback',
+  };
+  facebookCredentials = {
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL:
+      'https://debo9210-auth-app.herokuapp.com/auth/facebook/callback',
+  };
+  githubCredentials = {
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: 'https://debo9210-auth-app.herokuapp.com/auth/github/callback',
+  };
 } else {
-  googleCallback = googleAuth.googleCallbackUrl;
-  facebookCallback = facebookAuth.facebookCallbackUrl;
-  githubCallback = githubAuth.githubCallbackUrl;
+  googleCredentials = {
+    clientID: googleAuth.googleClientID,
+    clientSecret: googleAuth.googleClientSecret,
+    callbackURL: googleAuth.googleCallbackUrl,
+  };
+  facebookCredentials = {
+    clientID: facebookAuth.facebookClientID,
+    clientSecret: facebookAuth.facebookClientSecret,
+    callbackURL: facebookAuth.facebookCallbackUrl,
+  };
+  githubCredentials = {
+    clientID: githubAuth.githubClientID,
+    clientSecret: githubAuth.githubClientSecret,
+    callbackURL: githubAuth.githubCallbackUrl,
+  };
 }
 
 module.exports = (passport) => {
@@ -121,9 +143,9 @@ module.exports = (passport) => {
   passport.use(
     new FacebookStrategy(
       {
-        clientID: facebookAuth.facebookClientID,
-        clientSecret: facebookAuth.facebookClientSecret,
-        callbackURL: facebookAuth.facebookCallbackUrl,
+        clientID: facebookCredentials.clientID,
+        clientSecret: facebookCredentials.clientSecret,
+        callbackURL: facebookCredentials.callbackURL,
         profileFields: ['id', 'displayName', 'photos', 'email'],
         passReqToCallback: true,
       },
@@ -171,9 +193,9 @@ module.exports = (passport) => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: googleAuth.googleClientID,
-        clientSecret: googleAuth.googleClientSecret,
-        callbackURL: googleAuth.googleCallbackUrl,
+        clientID: googleCredentials.clientID,
+        clientSecret: googleCredentials.clientSecret,
+        callbackURL: googleCredentials.callbackURL,
         passReqToCallback: true,
       },
       (req, accessToken, refreshToken, profile, done) => {
@@ -225,9 +247,9 @@ module.exports = (passport) => {
   passport.use(
     new GitHubStrategy(
       {
-        clientID: githubAuth.githubClientID,
-        clientSecret: githubAuth.githubClientSecret,
-        callbackURL: githubAuth.githubCallbackUrl,
+        clientID: githubCredentials.clientID,
+        clientSecret: githubCredentials.clientSecret,
+        callbackURL: githubCredentials.callbackURL,
         passReqToCallback: true,
       },
       (req, accessToken, refreshToken, profile, done) => {
