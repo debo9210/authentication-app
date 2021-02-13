@@ -17,6 +17,20 @@ const githubAuth = require('./keys').githubAuth;
 const facebookAuth = require('./keys').facebookAuth;
 const googleAuth = require('./keys').googleAuth;
 
+let googleCallback, facebookCallback, githubCallback;
+if (process.env.NODE_ENV === 'production') {
+  googleCallback =
+    'https://debo9210-auth-app.herokuapp.com/auth/google/callback';
+  facebookCallback =
+    'https://debo9210-auth-app.herokuapp.com/auth/facebook/callback';
+  githubAuthCallback =
+    'https://debo9210-auth-app.herokuapp.com/auth/github/callback';
+} else {
+  googleCallback = googleAuth.googleCallbackUrl;
+  facebookCallback = facebookAuth.facebookCallbackUrl;
+  githubCallback = githubAuth.githubCallbackUrl;
+}
+
 module.exports = (passport) => {
   // serialize the user.id to save in the cookie session
   // so the browser will remember the user when login
