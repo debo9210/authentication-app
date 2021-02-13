@@ -38,7 +38,7 @@ export const getUserProfile = (id) => async (dispatch) => {
 };
 
 export const createUserProfile = (id, formData, history) => (dispatch) => {
-  console.log(history);
+  // console.log(history);
   const config = {
     headers: {
       'Content-Type': 'multipart/form-data',

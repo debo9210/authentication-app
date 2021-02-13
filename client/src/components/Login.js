@@ -65,12 +65,14 @@ const Login = () => {
 
   return (
     <div>
-      <AuthComponent
-        authHeading='Login'
-        inputComponent={inputs}
-        authBtn={authBtn}
-        memberOption={memberOption}
-      />
+      <div className='Login'>
+        <AuthComponent
+          authHeading='Login'
+          inputComponent={inputs}
+          authBtn={authBtn}
+          memberOption={memberOption}
+        />
+      </div>
     </div>
   );
 };

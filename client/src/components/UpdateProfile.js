@@ -9,6 +9,7 @@ import {
   getUserProfile,
   updateUserProfile,
 } from '../redux/actions/profileActions';
+import { RESET_STATE } from '../redux/constants';
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
@@ -80,11 +81,13 @@ const UpdateProfile = () => {
 
   const updateProfileCont = (
     <>
-      <div className='BackContainer'>
-        <i className='material-icons ArrowBackIcon'>arrow_back_ios</i>
-        <Link to='/personal-info'>
-          <p>Back</p>
-        </Link>
+      <div className='Back'>
+        <div className='BackContainer'>
+          <i className='material-icons ArrowBackIcon'>arrow_back_ios</i>
+          <Link to='/personal-info'>
+            <p>Back</p>
+          </Link>
+        </div>
       </div>
       <div className='ProfileInfoDisplay'>
         <div className='CreateProfile'>
@@ -176,19 +179,36 @@ const UpdateProfile = () => {
 
   useEffect(() => {
     if (profileDetails) {
-      setImage(profileDetails.imageLink);
+      // setImage(profileDetails.imageLink);
       setUserName(profileDetails.name);
       setUserBio(profileDetails.bio);
       setUserPhone(profileDetails.phone);
       setUserEmail(profileDetails.email);
+
+      if (
+        currentUser.user.socialName &&
+        profileDetails.imageFileName === null
+      ) {
+        setImage(currentUser.user.image);
+      } else {
+        setImage(profileDetails.imageLink);
+      }
     }
-  }, [profileDetails]);
+  }, [profileDetails, currentUser]);
 
   useEffect(() => {
     if (!currentUser.isAuthenticated) {
       history.push('/login');
     }
   }, [currentUser, history]);
+
+  useEffect(() => {
+    if (success === true) {
+      // window.location.reload();
+      history.push('/personal-info');
+      dispatch({ type: RESET_STATE });
+    }
+  }, [success, history, dispatch]);
 
   useEffect(() => {
     dispatch(getUserProfile(currentUser.user.id));

@@ -54,17 +54,26 @@ export const loginUser = (formData) => (dispatch) => {
 
 //social login users
 export const socialLogin = (history) => (dispatch) => {
+  const expTime = new Date();
+  expTime.setHours(expTime.getHours() + 6);
   axios
     .get(`/social/login`)
     .then((res) => {
       // console.log(res.data);
       const userDetails = {
-        id: res.data._id,
-        name: res.data.name,
-        email: res.data.email,
-        socialName: res.data.socialName,
-        image: res.data.image,
+        id: res.data.user._id,
+        name: res.data.user.name,
+        email: res.data.user.email,
+        socialName: res.data.user.socialName,
+        image: res.data.user.image,
+        iat: Date.now(),
+        exp: Date.parse(expTime),
       };
+
+      const accessToken = `Bearer ${res.data.userAccess}`;
+      localStorage.setItem('socialUser', JSON.stringify(userDetails));
+      localStorage.setItem('accessToken', JSON.stringify(accessToken));
+      setAuthToken(accessToken);
       dispatch(setCurrentUser(userDetails));
       history.push('/personal-info');
     })
@@ -89,13 +98,13 @@ export const logoutUser = () => (dispatch) => {
 
   //set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
-  // axios
-  //   .delete('/api/users/logout')
-  //   .then()
-  //   .catch((err) => console.log(err));
 };
 
 export const socialUserLogout = () => (dispatch) => {
+  localStorage.removeItem('socialUser');
+  localStorage.removeItem('accessToken');
+  //remove auth header for future requests
+  setAuthToken(false);
   axios
     .delete('/api/users/logout')
     .then()

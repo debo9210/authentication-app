@@ -5,8 +5,9 @@ import BrandLogo from '../svg/devchallenges.svg';
 import tempImage from '../images/noProfilePhoto.png';
 import ProfileNav from '../components/ProfileNav';
 import ProfileInputComponent from '../components/ProfileInputComponent';
-// import Loader from './Loader';
+import Loader from './Loader';
 import { createUserProfile } from '../redux/actions/profileActions';
+import { RESET_STATE } from '../redux/constants';
 
 const CreateProfile = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const CreateProfile = () => {
     (state) => state.createProfile
   );
 
+  // console.log(success);
+  // eslint-disable-next-line
   const { profileDetails } = useSelector((state) => state.userProfile);
 
   const inputFileHandler = (e) => {
@@ -47,7 +50,6 @@ const CreateProfile = () => {
     formData.append('uploads', fileobj);
 
     dispatch(createUserProfile(currentUser.user.id, formData, history));
-    // history.push('./personal-info');
   };
 
   const createProfile = (
@@ -132,11 +134,12 @@ const CreateProfile = () => {
   );
 
   useEffect(() => {
-    if (profileDetails) {
-      //   window.location.reload();
-      // history.push('/personal-info');
+    if (success === true) {
+      window.location.reload();
+      history.push('/personal-info');
+      dispatch({ type: RESET_STATE });
     }
-  }, [profileDetails, history]);
+  }, [success, history, dispatch]);
 
   useEffect(() => {
     if (currentUser) {
@@ -155,9 +158,10 @@ const CreateProfile = () => {
         BrandLogo={BrandLogo}
         tempImage={tempImage}
         userName={currentUser.user.name}
+        image={currentUser.user.image ? currentUser.user.image : null}
       />
-      {/* {loading ? <Loader /> : createProfile} */}
-      {createProfile}
+      {loading ? <Loader /> : createProfile}
+      {/* {createProfile} */}
     </>
   );
 };

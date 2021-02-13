@@ -18,6 +18,8 @@ if (localStorage.jwtToken) {
   //decode token and get user info and expiratiion
   const decoded = jwt_decode(localStorage.jwtToken);
 
+  // console.log(decoded);
+
   //set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
 
@@ -25,6 +27,22 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
 
   if (decoded.exp < currentTime) {
+    //log out user
+    store.dispatch(logoutUser());
+    window.location.href = '/login';
+  }
+}
+
+if (localStorage.socialUser) {
+  setAuthToken(localStorage.accessToken);
+
+  //get social login details from local storage
+  const socialUser = JSON.parse(localStorage.getItem('socialUser'));
+  store.dispatch(setCurrentUser(socialUser));
+
+  //check fro expired time
+  const currentTime = Date.now() / 1000;
+  if (socialUser.exp < currentTime) {
     //log out user
     store.dispatch(logoutUser());
     window.location.href = '/login';

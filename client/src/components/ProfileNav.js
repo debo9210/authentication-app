@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { logoutUser, socialUserLogout } from '../redux/actions/authActions';
 
 const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
@@ -12,6 +12,7 @@ const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
   // console.log(currentUser.user.socialName);
 
   const DropDownContainerRef = useRef(null);
+  // const arrowRef = useRef(null);
 
   const showDropDown = (e) => {
     if (e.target.textContent === 'arrow_drop_down') {
@@ -24,7 +25,7 @@ const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
   };
 
   const profileHandler = () => {
-    history.push('/personal-info');
+    // history.push('/personal-info');
   };
 
   const logoutHandler = () => {
@@ -54,6 +55,7 @@ const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
               <i
                 onClick={showDropDown}
                 className='material-icons ArrowDownIcon'
+                // ref={arrowRef}
               >
                 arrow_drop_down
               </i>
@@ -63,7 +65,9 @@ const ProfileNav = ({ BrandLogo, image, tempImage, userName }) => {
               <div className='DropDown'>
                 <div className='DropDownItem' onClick={profileHandler}>
                   <i className='material-icons DropDownIcon'>account_circle</i>
-                  <p className='IconName'>My Profile</p>
+                  <Link to='/personal-info'>
+                    <p className='IconName'>My Profile</p>
+                  </Link>
                 </div>
                 <div className='DropDownItem'>
                   <i className='material-icons DropDownIcon'>group</i>

@@ -1,7 +1,7 @@
 /* general styles */
 .App {
   /* text-align: center; */
-  /* border: 1px solid red; */
+  /* border: 1px solid blue; */
 }
 
 /* loader styles */
@@ -80,6 +80,7 @@ a {
   line-height: 22px;
   letter-spacing: -0.035em;
   /* border: 1px solid green; */
+  margin: 20px 0 0 0;
 }
 
 .InputGrouping {
@@ -192,8 +193,9 @@ a {
 
 .CopyRight {
   /* border: 1px solid red; */
+  width: 33%;
   display: flex;
-  margin-top: 5px;
+  margin: 5px auto 0 auto;
   justify-content: space-between;
 }
 
@@ -261,6 +263,7 @@ a {
   right: 50px;
   display: none;
   padding-top: 15px;
+  /* border: 1px solid red; */
 }
 
 .DropDownItem {
@@ -331,6 +334,11 @@ a {
   text-align: center;
   color: #000000;
   margin: 0;
+}
+
+.Back {
+  /* border: 1px solid red; */
+  height: 30%;
 }
 
 .BackContainer {
@@ -405,6 +413,14 @@ p {
   color: #828282;
 }
 
+.ButtonGroup {
+  /* border: 1px solid red; */
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .EditBtn {
   border: 1px solid #828282;
   box-sizing: border-box;
@@ -421,6 +437,11 @@ p {
   cursor: pointer;
 }
 
+.DeleteBtn {
+  border: 1px solid tomato;
+  color: tomato;
+}
+
 .PhotoHeight {
   height: 90px;
   display: flex;
@@ -430,6 +451,7 @@ p {
 .Photo {
   display: flex;
   align-items: center;
+  /* border: 1px solid blue; */
 }
 
 .DetailsHeading {
@@ -452,16 +474,20 @@ p {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  /* border: 1px solid yellow; */
 }
 
 .ML {
   /* margin-left: 200px; */
   width: 65%;
+  /* border: 1px solid red; */
+  /* text-align: right; */
 }
 
 .ProfileBio {
   display: flex;
   align-items: center;
+  /* border: 1px solid red; */
 }
 
 .BioDetails {
@@ -613,4 +639,134 @@ p {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 415px) and (max-width: 768px) {
+  .ProfileInfoDisplay,
+  .CopyProfileInfo,
+  .BackContainer {
+    width: 75%;
+  }
+
+  .ProfileInputGroup {
+    width: 70%;
+    /* border: 1px solid pink; */
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .AuthContainer {
+    /* border: 1px solid blue; */
+    width: 90%;
+    /* height: 70vh; */
+    margin: 20px auto 0 auto;
+  }
+
+  .Auth {
+    /* border: 1px solid red; */
+    width: 100%;
+    margin: 0;
+  }
+
+  .AuthPage {
+    border: none;
+    border-radius: 0;
+  }
+
+  .AuthHeading {
+    margin: 0 0 20px 0;
+  }
+
+  .CopyRightLogin {
+    /* border: 1px solid red; */
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    /* margin: 0 auto; */
+    padding: 0 15px;
+  }
+
+  .CopyRight {
+    /* border: 1px solid green; */
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .InputGroup {
+    height: 35px;
+    margin-bottom: 15px;
+    /* border: 1px solid red; */
+  }
+
+  .ProfileInfoDisplay {
+    /* border: 1px solid red; */
+    border-top: none;
+    border-radius: 0px;
+    width: 100%;
+    margin: 30px auto 30px auto;
+  }
+
+  .ProfileHeading p {
+    /* border: 1px solid green; */
+    width: 80%;
+  }
+
+  .ML {
+    text-align: right;
+  }
+
+  .Photo {
+    /* border: 1px solid blue; */
+    justify-content: space-between;
+  }
+
+  .ButtonGroup {
+    /* border: 1px solid red; */
+    width: 30%;
+    justify-content: flex-end;
+  }
+
+  .ButtonGroup button {
+    margin: 5px 0;
+  }
+
+  .BackContainer {
+    /* border: 1px solid red; */
+    width: 90%;
+  }
+
+  .ProfileInputGroup {
+    width: 70%;
+    /* border: 1px solid pink; */
+  }
+
+  .ProfileDetailsContainerMobile {
+    /* border: 1px solid red; */
+    border-bottom: none;
+  }
+}
+
+@media only screen and (min-width: 415px) and (max-width: 812px) {
+  .AuthContainer,
+  .CopyRight {
+    width: 53%;
+  }
+}
+
+@media only screen and (min-width: 415px) and (max-width: 1024px) {
+  .ButtonGroup {
+    /* border: 1px solid red; */
+    width: 30%;
+    justify-content: flex-end;
+  }
+
+  .ButtonGroup button {
+    margin: 5px 0;
+  }
+
+  .CopyProfileInfo {
+    width: 75%;
+    margin: 10px auto;
+    /* border: 1px solid orange; */
+  }
 }

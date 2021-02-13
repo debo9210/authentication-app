@@ -6,7 +6,7 @@ import tempImage from '../images/noProfilePhoto.png';
 import ProfileNav from '../components/ProfileNav';
 import Loader from './Loader';
 import { getUserProfile } from '../redux/actions/profileActions';
-import { logoutUser } from '../redux/actions/authActions';
+import { logoutUser, socialUserLogout } from '../redux/actions/authActions';
 import axios from 'axios';
 
 const PersonalInfo = () => {
@@ -26,13 +26,19 @@ const PersonalInfo = () => {
     (state) => state.userProfile
   );
 
-  // console.log(image);
-
   const deleteProfileHandler = () => {
-    axios
-      .delete(`/api/profile/remove/${currentUser.user.id}`)
-      .then(() => dispatch(logoutUser()))
-      .catch((err) => console.log(err));
+    if (window.confirm('Are you sure? This action cannot be undone')) {
+      axios
+        .delete(`/api/profile/remove/${currentUser.user.id}`)
+        .then(() => {
+          if (currentUser.user.socialName) {
+            dispatch(socialUserLogout());
+          } else {
+            dispatch(logoutUser());
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const profileSummary = (
@@ -42,21 +48,26 @@ const PersonalInfo = () => {
         <p className='HeadingAbout'>Basic info, like your name and photo</p>
       </header>
       <div className='ProfileInfoDisplay'>
-        <div className='ProfileDetailsContainer'>
+        <div className='ProfileDetailsContainer ProfileDetailsContainerMobile'>
           <div className='ProfileHeading ProfileBox'>
             <div className='Profile'>
               <h3>Profile</h3>
               <p>Some info may be visible to other people</p>
             </div>
-            <button
-              onClick={() => history.push('/update-profile')}
-              className='EditBtn'
-            >
-              Edit
-            </button>
-            <button onClick={deleteProfileHandler} className='EditBtn'>
-              Delete
-            </button>
+            <div className='ButtonGroup'>
+              <button
+                onClick={() => history.push('/update-profile')}
+                className='EditBtn'
+              >
+                Edit
+              </button>
+              <button
+                onClick={deleteProfileHandler}
+                className='EditBtn DeleteBtn'
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
         <div className='ProfileDetailsContainer PhotoHeight'>
@@ -118,9 +129,17 @@ const PersonalInfo = () => {
     if (profileDetails) {
       setName(profileDetails.name);
       setBio(profileDetails.bio);
-      setImage(profileDetails.imageLink);
       setPhone(profileDetails.phone);
       setEmail(profileDetails.email);
+
+      if (
+        currentUser.user.socialName &&
+        profileDetails.imageFileName === null
+      ) {
+        setImage(currentUser.user.image);
+      } else {
+        setImage(profileDetails.imageLink);
+      }
     }
 
     if (error) {
@@ -131,7 +150,7 @@ const PersonalInfo = () => {
       // window.location.reload();
       // setErrorMsg('');
     }
-  }, [profileDetails, error, history, errorMsg]);
+  }, [profileDetails, error, history, errorMsg, currentUser]);
 
   useEffect(() => {
     if (!currentUser.isAuthenticated) {

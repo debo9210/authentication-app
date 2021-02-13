@@ -15,44 +15,48 @@ const AuthComponent = ({
   memberOption,
 }) => {
   return (
-    <div className='AuthContainer'>
-      <div className='AuthPage'>
-        <div className='Auth'>
-          <img className='Brand' src={DevLogo} alt='Brand' />
-          <div className='AuthHeadingContainer'>
-            <h4 className='AuthHeading'>{authHeading}</h4>
+    <>
+      <div className='AuthContainer'>
+        <div className='AuthPage'>
+          <div className='Auth'>
+            <img className='Brand' src={DevLogo} alt='Brand' />
+            <div className='AuthHeadingContainer'>
+              <h4 className='AuthHeading'>{authHeading}</h4>
 
-            <p className='AuthAbout'>{authAbout}</p>
-          </div>
-
-          <div className='InputGrouping'>
-            {inputComponent}
-            {authBtn}
-          </div>
-
-          <p className='SocialConnect'>or continue with these social profile</p>
-
-          <div className='SocialGroup'>
-            <SocialLogin socialLogo={GoogleLogo} socialName='google' />
-            <div>
-              <SocialLogin socialLogo={FacebookLogo} socialName='facebook' />
+              <p className='AuthAbout'>{authAbout}</p>
             </div>
-            {/* <div className='SocialLinkContainer'>
+
+            <div className='InputGrouping'>
+              {inputComponent}
+              {authBtn}
+            </div>
+
+            <p className='SocialConnect'>
+              or continue with these social profile
+            </p>
+
+            <div className='SocialGroup'>
+              <SocialLogin socialLogo={GoogleLogo} socialName='google' />
+              <div>
+                <SocialLogin socialLogo={FacebookLogo} socialName='facebook' />
+              </div>
+              {/* <div className='SocialLinkContainer'>
               <SocialLogin socialLogo={TwitterLogo} socialName='twitter' />
             </div> */}
-            <div className=''>
-              <SocialLogin socialLogo={GithubLogo} socialName='github' />
+              <div className=''>
+                <SocialLogin socialLogo={GithubLogo} socialName='github' />
+              </div>
             </div>
-          </div>
 
-          {memberOption}
+            {memberOption}
+          </div>
         </div>
       </div>
-      <div className='CopyRight'>
+      <div className='CopyRight CopyRightLogin'>
         <p className='CopyText'>debo9210</p>
         <p className='CopyText'>devchallenges.io</p>
       </div>
-    </div>
+    </>
   );
 };
 

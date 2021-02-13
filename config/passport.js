@@ -111,8 +111,10 @@ module.exports = (passport) => {
         clientSecret: facebookAuth.facebookClientSecret,
         callbackURL: facebookAuth.facebookCallbackUrl,
         profileFields: ['id', 'displayName', 'photos', 'email'],
+        passReqToCallback: true,
       },
-      (accessToken, refreshToken, profile, done) => {
+      (req, accessToken, refreshToken, profile, done) => {
+        req.session.accessToken = accessToken;
         User.findOne({ socialID: profile.id }).then((user) => {
           if (user) {
             //update user in database
@@ -158,9 +160,14 @@ module.exports = (passport) => {
         clientID: googleAuth.googleClientID,
         clientSecret: googleAuth.googleClientSecret,
         callbackURL: googleAuth.googleCallbackUrl,
+        passReqToCallback: true,
       },
-      (accessToken, refreshToken, profile, done) => {
+      (req, accessToken, refreshToken, profile, done) => {
+        req.session.accessToken = accessToken;
+        // console.log(accessToken);
+        // localStorage.setItem('jwtToken', `Bearer ${accesToken}`);
         //store user to database
+
         User.findOne({ socialID: profile.id }).then((user) => {
           if (user) {
             //create new user in database
@@ -207,8 +214,10 @@ module.exports = (passport) => {
         clientID: githubAuth.githubClientID,
         clientSecret: githubAuth.githubClientSecret,
         callbackURL: githubAuth.githubCallbackUrl,
+        passReqToCallback: true,
       },
-      (accessToken, refreshToken, profile, done) => {
+      (req, accessToken, refreshToken, profile, done) => {
+        req.session.accessToken = accessToken;
         let email;
         if (profile.email) {
           email = profile.email;

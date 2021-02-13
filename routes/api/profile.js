@@ -123,7 +123,7 @@ router.get('/image/:id', (req, res) => {
 // @Access Private
 router.post('/:id', upload.single('uploads'), (req, res) => {
   // console.log(req.body);
-  // console.log(req.user);
+  // console.log(req.params.id);
   const { errors, isValid } = validateProfileInput(req.body);
 
   const url = req.protocol + '://' + req.get('host');
@@ -168,10 +168,10 @@ router.post('/:id', upload.single('uploads'), (req, res) => {
         phone: req.body.phone,
       });
 
-      // newProfile
-      //   .save()
-      //   .then((profile) => res.json(profile))
-      //   .catch((err) => res.status(400).json(err));
+      newProfile
+        .save()
+        .then((profile) => res.json(profile))
+        .catch((err) => res.status(400).json(err));
     }
   });
 });
