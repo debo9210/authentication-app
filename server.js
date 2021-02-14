@@ -87,7 +87,7 @@ const isSignedIn = async (req, res, next) => {
     user: req.user,
     userAccess: req.session.accessToken,
   };
-  res.status(200).json(userDetails);
+  res.json(userDetails);
   next();
 };
 
