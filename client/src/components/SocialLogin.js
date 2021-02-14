@@ -12,9 +12,9 @@ const SocialLogin = () => {
   const currentUser = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-    if (!currentUser.isAuthenticated && !currentUser.user.socialName) {
-      history.push('/login');
-    }
+    // if (!currentUser.isAuthenticated && !currentUser.user.socialName) {
+    //   history.push('/login');
+    // }
 
     dispatch(socialLogin(history));
   }, [dispatch, history, currentUser]);
