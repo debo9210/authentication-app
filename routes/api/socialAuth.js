@@ -3,9 +3,9 @@ const passport = require('passport');
 
 const router = express.Router();
 
-const CLIENT_HOME_PAGE_URL = 'http://localhost:3000/login';
+const CLIENT_HOME_PAGE_URL = 'https://debo9210-auth-app.herokuapp.com/login';
 
-const SOCIAL_LOGIN_URL = 'http://localhost:3000/social-login';
+const SOCIAL_LOGIN_URL = 'https://debo9210-auth-app.herokuapp.com/social-login';
 
 // let CLIENT_HOME_PAGE_URL, SOCIAL_LOGIN_URL;
 // if (process.env.NODE_ENV === 'production') {

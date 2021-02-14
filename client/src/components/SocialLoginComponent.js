@@ -28,7 +28,7 @@ const SocialLoginComponent = ({ socialLogo, socialName }) => {
     }
 
     return window.open(
-      url,
+      `https://debo9210-auth-app.herokuapp.com/auth/github`,
       '_self',
       `toolbar=no, location=no, directories=no, status=no, menubar=no,
         scrollbars=no, resizable=no, copyhistory=no, width=${width},

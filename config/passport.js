@@ -244,12 +244,17 @@ module.exports = (passport) => {
     )
   );
 
+  // clientID: githubCredentials.clientID,
+  //     clientSecret: githubCredentials.clientSecret,
+  //     callbackURL: githubCredentials.callbackURL,
+
   passport.use(
     new GitHubStrategy(
       {
-        clientID: githubCredentials.clientID,
-        clientSecret: githubCredentials.clientSecret,
-        callbackURL: githubCredentials.callbackURL,
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL:
+          'https://debo9210-auth-app.herokuapp.com/auth/github/callback',
         passReqToCallback: true,
       },
       (req, accessToken, refreshToken, profile, done) => {
