@@ -58,7 +58,7 @@ export const socialLogin = (history) => (dispatch) => {
   const expTime = new Date();
   expTime.setHours(expTime.getHours() + 6);
   axios
-    .get(socialUrlLogin)
+    .get('/social/login')
     .then((res) => {
       // console.log(res.data);
       const userDetails = {

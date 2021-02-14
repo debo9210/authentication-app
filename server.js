@@ -80,7 +80,7 @@ app.get('/user', async (req, res, next) => {
 });
 
 const isSignedIn = async (req, res, next) => {
-  console.log(req.user);
+  console.log('social login', req.user.id);
   const user = await User.findOne({ socialID: req.user.id });
   req.user = user;
   const userDetails = {
