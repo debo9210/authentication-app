@@ -20,10 +20,13 @@ router.get('/facebook', passport.authenticate('facebook'));
 
 router.get(
   '/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: CLIENT_HOME_PAGE_URL }),
-  (req, res) => {
-    res.redirect(SOCIAL_LOGIN_URL);
-  }
+  passport.authenticate('facebook', {
+    failureRedirect: CLIENT_HOME_PAGE_URL,
+    successRedirect: SOCIAL_LOGIN_URL,
+  })
+  // (req, res) => {
+  //   res.redirect(SOCIAL_LOGIN_URL);
+  // }
 );
 
 router.get(
@@ -33,10 +36,13 @@ router.get(
 
 router.get(
   '/github/callback',
-  passport.authenticate('github', { failureRedirect: CLIENT_HOME_PAGE_URL }),
-  (req, res) => {
-    res.redirect(SOCIAL_LOGIN_URL);
-  }
+  passport.authenticate('github', {
+    failureRedirect: CLIENT_HOME_PAGE_URL,
+    successRedirect: SOCIAL_LOGIN_URL,
+  })
+  // (req, res) => {
+  //   res.redirect(SOCIAL_LOGIN_URL);
+  // }
 );
 
 router.get(
@@ -49,10 +55,13 @@ router.get(
 
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
-  (req, res) => {
-    res.redirect(SOCIAL_LOGIN_URL);
-  }
+  passport.authenticate('google', {
+    failureRedirect: CLIENT_HOME_PAGE_URL,
+    successRedirect: SOCIAL_LOGIN_URL,
+  })
+  // (req, res) => {
+  //   res.redirect(SOCIAL_LOGIN_URL);
+  // }
 );
 
 // router.get('/twitter', passport.authenticate('twitter'));
