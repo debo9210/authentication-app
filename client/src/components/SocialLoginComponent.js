@@ -1,7 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 
 const SocialLoginComponent = ({ socialLogo, socialName }) => {
   const socialLoginHandler = (e) => {
+    // qasa
+
     // Authenticate using via passport api in the backend
     // Open Twitter login page
     const width = 600,
@@ -37,6 +40,9 @@ const SocialLoginComponent = ({ socialLogo, socialName }) => {
   return (
     <div>
       <img onClick={socialLoginHandler} src={socialLogo} alt={socialName} />
+      {/* <a href='http://localhost:5000/auth/google'>
+        <img src={socialLogo} alt={socialName} />
+      </a> */}
     </div>
   );
 };
