@@ -16,17 +16,17 @@ const SocialLoginComponent = ({ socialLogo, socialName }) => {
     // const url2 = `http://127.0.0.1:5000/auth/${e.target.alt}`;
 
     let url;
-    // if (process.env.NODE_ENV === 'production') {
-    //   url = `https://debo9210-auth-app.herokuapp.com/auth/${e.target.alt}`;
-    // } else {
-    //   url = `http://localhost:5000/auth/${e.target.alt}`;
-    // }
-
-    if (e.target.alt === 'twitter') {
-      url = `http://127.0.0.1:5000/auth/${e.target.alt}`;
+    if (process.env.NODE_ENV === 'production') {
+      url = `https://debo9210-auth-app.herokuapp.com/auth/${e.target.alt}`;
     } else {
       url = `http://localhost:5000/auth/${e.target.alt}`;
     }
+
+    // if (e.target.alt === 'twitter') {
+    //   url = `http://127.0.0.1:5000/auth/${e.target.alt}`;
+    // } else {
+    //   url = `http://localhost:5000/auth/${e.target.alt}`;
+    // }
 
     return window.open(
       url,
