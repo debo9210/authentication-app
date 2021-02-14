@@ -3,11 +3,12 @@ import setAuthToken from '../../utils/setAuthToken';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-// const config = {
-//   header: {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//   },
-// };
+let socialUrlLogin;
+if (process.env.NODE_ENV === 'production') {
+  socialUrlLogin = 'https://debo9210-auth-app.herokuapp.com/social/login';
+} else {
+  socialUrlLogin = '/social/login';
+}
 
 // register user
 export const registerUser = (formData, history) => (dispatch) => {
@@ -57,7 +58,7 @@ export const socialLogin = (history) => (dispatch) => {
   const expTime = new Date();
   expTime.setHours(expTime.getHours() + 6);
   axios
-    .get(`/social/login`)
+    .get(socialUrlLogin)
     .then((res) => {
       // console.log(res.data);
       const userDetails = {
