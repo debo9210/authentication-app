@@ -15,13 +15,13 @@ const SocialLogin = () => {
     // if (!currentUser.isAuthenticated && !currentUser.user.socialName) {
     //   history.push('/login');
     // }
-
-    dispatch(socialLogin(history));
+    // dispatch(socialLogin(history));
   }, [dispatch, history, currentUser]);
 
   return (
     <div>
-      <Loader />
+      <h1>Welcome here!!1</h1>
+      {/* <Loader /> */}
     </div>
   );
 };
