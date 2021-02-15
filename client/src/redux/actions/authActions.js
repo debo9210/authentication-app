@@ -60,7 +60,7 @@ export const socialLogin = (history) => (dispatch) => {
   axios
     .get('/social/login')
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       const userDetails = {
         id: res.data.user._id,
         name: res.data.user.name,
