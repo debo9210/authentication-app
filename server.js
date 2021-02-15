@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 // set up cors to allow us to accept requests from our client
 app.use(
   cors({
-    origin: 'http://localhost:3000', // allow to server to accept request from different origin
+    origin: url, // allow to server to accept request from different origin
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // allow session cookie from browser to pass through
   })
@@ -54,7 +54,7 @@ app.use(bodyParser.json());
 //express session middleware
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: require('./config/keys').secretOrKey,
     resave: false,
     saveUninitialized: false,
     cookie: {
