@@ -55,8 +55,11 @@ app.use(bodyParser.json());
 app.use(
   session({
     secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 60000 * 60,
+    },
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
