@@ -713,6 +713,8 @@ p {
 
   .ML {
     text-align: right;
+    /* border: 1px solid red; */
+    width: 100%;
   }
 
   .Photo {
