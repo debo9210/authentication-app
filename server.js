@@ -91,7 +91,15 @@ const isSignedIn = async (req, res, next) => {
   next();
 };
 
-app.get('/social/login', isSignedIn);
+app.get('/social/login', async (req, res) => {
+  const user = await User.findOne({ socialID: req.user.id });
+  req.user = user;
+  const userDetails = {
+    user: req.user,
+    userAccess: req.session.accessToken,
+  };
+  res.status(200).json(userDetails);
+});
 
 app.delete('/delete', (req, res) => {
   req.session.destroy();
